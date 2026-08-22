@@ -16,14 +16,15 @@ public class ResultRedsTests
         var parsed = ParseQuantity("twelve");
 
         var ex = Assert.Throws<ResultFailureException>(() => parsed.Value);
-        Assert.Contains("Not a number", ex.Message);
+        Assert.Equal($"Not a number: 'twelve'", ex.Error);
     }
     
     // RED #2 - better. Guard first, with the error in the message.
     [Fact]
     public void GuardFirst_GivesAnAssertionRed()
     {
-        var parsed = ParseQuantity("twelve");
+        // var parsed = ParseQuantity("twelve");
+        var parsed = ParseQuantity("12");
         
         Assert.True(parsed.IsSuccess, parsed.IsFailure ? parsed.Error : null);
         Assert.Equal(12, parsed.Value);
@@ -33,7 +34,8 @@ public class ResultRedsTests
     [Fact]
     public void MatchToAString_GivesADiff()
     {
-        var parsed = ParseQuantity("twelve");
+        // var parsed = ParseQuantity("twelve");
+        var parsed = ParseQuantity("12");
 
         var outcome = parsed.Match(
             onSuccess: n => $"Success: {n}",

@@ -108,7 +108,7 @@ dotnet add tests/Expenses.Tests package CSharpFunctionalExtensions
 
 This is a departure from learn-language-ext, where the test project got LanguageExt transitively. Here you'll be writing `Maybe<T>`/`Result<T>` in test-local helpers and inline types constantly, and a direct reference makes that intent explicit rather than accidentally-transitive. It's also what a real test project would do.
 
-### Step 4 — Write the smoke test  `[ ]`
+### Step 4 — Write the smoke test  `[x]`
 
 Create `tests/Expenses.Tests/SmokeTests.cs`:
 
@@ -163,7 +163,7 @@ Three green. Then open the solution in Rider via Gateway and run them from the b
 
 **If `Maybe<int> answer = Maybe.From(42);` won't compile:** you're on a pre-3.x version. `Maybe` (the non-generic entry point with the type-inferring `From<T>`) is a 3.x addition; older code used `Maybe<int>.From(42)`.
 
-### Step 6 — Record what actually landed  `[ ]`
+### Step 6 — Record what actually landed  `[x]`
 
 Update **Decisions made** with the real package version, and note anything that differed from these instructions. This section is the repo's record of "what was true when we started."
 
