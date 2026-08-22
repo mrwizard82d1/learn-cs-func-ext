@@ -11,11 +11,12 @@ public class ResultRedsTests
     
     // RED #1 - deliberately bad. Reads `.Value` as the primary assertion.
     [Fact]
-    public void ValueAsAssertion_GivesUnhelpfulRed()
+    public void ValueAsAssertion_Throws()
     {
         var parsed = ParseQuantity("twelve");
-        
-        Assert.Equal(12, parsed.Value);
+
+        var ex = Assert.Throws<ResultFailureException>(() => parsed.Value);
+        Assert.Contains("Not a number", ex.Message);
     }
     
     // RED #2 - better. Guard first, with the error in the message.
