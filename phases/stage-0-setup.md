@@ -31,7 +31,7 @@ Nothing here should be novel. That's the point: the environment is a solved prob
 
 ## Steps
 
-### Step 1 — Create the solution structure  `[ ]`
+### Step 1 — Create the solution structure  `[x]`
 
 Target layout:
 
@@ -71,7 +71,7 @@ Two things to notice:
 
 Delete both generated `Class1.cs` placeholders.
 
-### Step 2 — Wire up the test project  `[ ]`
+### Step 2 — Wire up the test project  `[x]`
 
 The .NET 10 `dotnet new xunit` template's xUnit version has moved around (that's how learn-language-ext ended up on xUnit v3 + MTP and then had to migrate back). Rather than template-then-fix, copy the csproj that's already known-good:
 
@@ -92,7 +92,7 @@ The copied file's `<ProjectReference>` and `<RootNamespace>` will point at learn
 
 Also confirm `src/Expenses/Expenses.csproj` has `<Nullable>enable</Nullable>` and `<ImplicitUsings>enable</ImplicitUsings>`. Keep nullable reference types **on** for the whole tutorial: one of the questions you're implicitly answering for your team is *"where does `Maybe<T>` earn its keep over plain `string?`"*, and you can't feel that with NRTs switched off.
 
-### Step 3 — Add the package  `[ ]`
+### Step 3 — Add the package  `[x]`
 
 ```
 dotnet add src/Expenses package CSharpFunctionalExtensions
