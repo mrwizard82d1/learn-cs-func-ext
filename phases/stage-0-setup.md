@@ -151,7 +151,7 @@ Three things worth noticing already, all of which get their own treatment later:
 - **`answer.GetValueOrThrow()` instead of `answer.Value`.** Both work and do exactly the same thing — `Value` is literally implemented as `=> GetValueOrThrow()`, and the library's own doc comment on it reads *"Try to use GetValueOrThrow() or GetValueOrDefault() instead for better explicitness."* Getting in the habit now costs nothing; Part 2 makes the case properly.
 - **`ok.Value` on a `Result<T>`, though.** Result's `Value` throws `ResultFailureException` if you read it on a failure. In a test, right after asserting `IsSuccess`, that's fine and idiomatic. In production code inside a pipeline it's the thing you're trying to avoid. Different rules for different places — that distinction is a recurring theme.
 
-### Step 5 — Verify  `[ ]`
+### Step 5 — Verify  `[x]`
 
 ```
 dotnet test
