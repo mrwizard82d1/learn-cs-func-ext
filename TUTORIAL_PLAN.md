@@ -80,9 +80,9 @@ Everything you need to write real CFE code. Read it through, then type it.
 | 3 | `Result` / `Result<T>` — the railway: `Success`/`Failure`/`Try`/`Of`, `Map`, `Bind`, `Ensure`, `Match`, and `ToResult` as the bridge from `Maybe` |
 | 4 | The pipeline vocabulary — `Tap`, `TapError`, `Check` vs `Ensure` vs `Bind`, `Compensate`, `Finally`, the `*If` and `*Try` families |
 
-### Article B — `article/02-going-deeper.md`
+### Article B — [`article/02-going-deeper.md`](article/02-going-deeper.md)
 
-The parts you reach for once the basics are reflexive. Written after you've worked through A.
+The parts you reach for once the basics are reflexive. More judgment than Article A, since three of its four parts cover places where the library is incomplete (Part 6), overlapping with newer C# (Part 7), or leaning on third-party packages (Part 8) — so most `ADOPTION.md` entries will come from here.
 
 | Part | Topic |
 |---|---|
