@@ -39,7 +39,7 @@ public class ResultRedsTests
 
         var outcome = parsed.Match(
             onSuccess: n => $"Success: {n}",
-            onFailure: e => $"failure: {e}");
+            onFailure: e => $"Failure: {e}");
         
         Assert.Equal("Success: 12", outcome);
     }

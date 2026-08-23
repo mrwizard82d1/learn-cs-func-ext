@@ -179,6 +179,16 @@ Update **Decisions made** with the real package version, and note anything that 
 
 ## Notes & questions
 
-_Yours to fill in._
+**Typing values**
 
--
+I understand the "value" of typing values (on the left-hand-side of assignments) but the habit is **very** hard to 
+break.
+
+**A failing result**
+
+I found, it seems, all the ways to induce an error when creating (hard-coding) a failed result. It was good to work 
+through all the permutations, but I have much to learn over time
+
+**Optional stretch results**
+
+I read (skimmed) the CFE README file. I found it "hard to grok". (But perhaps it's a "late in the day" effect.) Additionally, I skimmed the Maybe<T> code and skimmed the Option<T> code for languag-ext. Much, much smaller. My guess, partially from the phrasing of the question, is that Maybe.From<string>(null) will evaluate to Maybe<string>.None.
