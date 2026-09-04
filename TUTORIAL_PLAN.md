@@ -42,6 +42,8 @@ Two consequences worth keeping stated:
 
 Domain: the **expense tracker** from learn-language-ext, on purpose. Zero domain load means every surprise is an *API* surprise, and the LanguageExt-vs-CFE diff shows up line by line.
 
+**Read first: [`article/00-khorikov-series.md`](article/00-khorikov-series.md)** — a guided, critical read of Khorikov's 2015 "Functional C#" series (~1 hour). It's the *why* behind the library, which is what Stage 3 needs; reading it first also makes Article A a second exposure rather than a first.
+
 **Article A — [`article/01-the-working-tour.md`](article/01-the-working-tour.md)** *(written)*
 
 | Part | Topic |
@@ -147,6 +149,7 @@ TUTORIAL_PLAN.md            ← this file
 ADOPTION.md                 ← decision journal
 PARKED-FSHARP-TRACK.md      ← the deferred F# ambition + November trigger
 article/
+  00-khorikov-series.md     ← guided read of the 2015 source material + capture slots
   01-the-working-tour.md    ← Stage 1, Article A
   02-going-deeper.md        ← Stage 1, Article B
 phases/
