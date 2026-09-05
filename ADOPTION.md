@@ -34,6 +34,22 @@ Not homework — just the list of things I'd need a real answer to before recomm
 
 <!-- newest first -->
 
+### 2026-09-05 — the opportunity is seam-level, not transformational
+
+- **Hit:** Claude proposed connectors as the ideal adoption unit, on the grounds that a connector *is* functional core / imperative shell already. True about the shape — but it assumed a supply of *new* connectors. We've existed since 1980. We have many, many working connectors that need maintenance, not rebuilds.
+- **Concluded:** "Just fix it" is usually the *correct* engineering call, not merely the cheap one — and the strongest argument isn't sunk cost. A connector that's run for fifteen years encodes hundreds of edge cases nobody wrote down, found one support ticket at a time; a rewrite discards that and rediscovers it at the customer's expense. So the realistic unit of adoption is a **seam I'm already touching for a ticket** — extract *that one mapping* into a pure function returning `Result`, leave everything around it alone. The imperative shell already exists; it's the old code. This is not a new process — it's refactor-before-change, which is already my default.
+- **Tell the team:** *We don't rebuild working connectors. When a ticket makes us open one, the mapping we touch comes out as a pure function — that's the whole ask.*
+
+**The business case that beats "just fix it"** is not code cleanliness; nobody buys that. It's **diagnostics**. Today a bad record tends to abort a batch or vanish into a swallowed exception. Accumulating errors and reporting partial success turns "your file failed" into "rows 12, 40, and 233 failed, and here's why" — that reduces support load and is visible to the customer. Lead with that.
+
+**One number I should know and don't:** how many genuinely *new* connectors do we build per year? That figure alone decides whether greenfield adoption is a real path or a rounding error.
+
+### 2026-09-05 — the register, not the content, is the transferable lesson
+
+- **Hit:** Read Khorikov's 2015 "Functional C#" series. No new *content* — every argument was familiar from prior FP reading. But it uses almost no functional jargon: no `monad`, `functor`, or `applicative` anywhere. The vocabulary is Evans and Fowler — primitive obsession, immutability, illegal states unrepresentable.
+- **Concluded:** That register is the whole reason the series is still readable eleven years on, and it's the register the on-ramp needs — the team has the DDD vocabulary and none of the FP vocabulary. Also a warning about myself: the jargon-free style read as *foreign*, which means months in LanguageExt-land have drifted me into the specialist register. That's an occupational hazard for whoever writes the on-ramp, i.e. me.
+- **Tell the team:** *(nothing yet — this one is about how I write for them, not what I ask of them.)*
+
 ### 2026-08-22 — CFE has no on-ramp
 
 - **Hit:** Skimmed the official [CFE README](https://github.com/vkhorikov/CSharpFunctionalExtensions) cold, before reading anything else. Couldn't get purchase on it — hard to grok.

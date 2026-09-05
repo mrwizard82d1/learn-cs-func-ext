@@ -39,13 +39,32 @@ Optional, if you want the primary source on the library's own motivation:
 
 Where you **disagree** with 2015-Khorikov is the most valuable output of this hour — that's precisely the material Stage 3 needs, because it's what makes your on-ramp better than the stale blog post a teammate would otherwise google.
 
+### Read 2026-09-05 — general reactions
+
+**Nothing new in the content.** All four arguments were familiar from previous FP reading; details differed, substance didn't. *That's the useful result:* it confirms the gap is **application, not comprehension**. Had the posts taught something new about immutability, that would have been the worrying outcome.
+
+**The one surprise was the date.** 2015 — earlier than expected for someone integrating functional ideas into the C# ecosystem. In hindsight unsurprising: F# had shipped as a first-class Visual Studio language in 2010 (research releases from 2005), and Wlaschin's canonical Railway Oriented Programming post is May 2013. Khorikov wasn't a lone voice; he was part of a small wave.
+
+What sharpens the surprise: he was arguing **uphill**. March 2015 C# had no nullable reference types (2019), no records (2020), no switch expressions, no usable pattern matching. Every mechanism he proposes is hand-rolled because the language offered nothing.
+
+**Liked the organization** — start with immutability, then layer the rest on.
+
+**The register finding — most valuable takeaway.** Struck by the near-total absence of functional *jargon*. No `monad`, `functor`, or `applicative` anywhere. His vocabulary is **Evans and Fowler**: primitive obsession, immutability, illegal states unrepresentable.
+
+Two things follow:
+
+1. **That is the register the Stage 3 on-ramp needs**, because the team already has the DDD vocabulary and has none of the FP vocabulary. Test for every sentence: *would Khorikov-in-2015 have written it this way?*
+2. **The fact that it read as "foreign" is a warning.** Months in LanguageExt-land have shifted me into the specialist register — a normal drift, and an occupational hazard for anyone about to teach.
+
+**The background challenge is unchanged, and arguably worse:** how do these ideas enter day-to-day work on a large, old, unusual codebase? Day-to-day work is mostly **connectors** — smaller programs moving data between systems, with translation en route — and there is still a great deal to learn about the products themselves. See the ADOPTION.md entry of the same date; this reshaped Stage 2.
+
 ### 1. Immutability
 
--
+- Argument familiar; mechanics visibly pre-records. Worth noting he explicitly declines to universalize it ("some classes are inherently mutable") — weigh case by case. That hedge is a good model for the on-ramp's tone.
 
 ### 2. Primitive obsession
 
--
+- The post that holds up best, and the one a teammate could read unedited. Also the argument with the most direct purchase on connector work: source-system codes, IDs, and formats are exactly where `string`-typed everything hurts.
 
 ### 3. Non-nullable reference types
 
@@ -88,8 +107,9 @@ So the honest answer to "how do you protect a less-experienced teammate" is **no
 
 ### 4. Handling failures and input errors
 
--
+- Railway-oriented core intact; the hand-rolled `Result` shows its age. The connector application is direct: bad record, missing field, and unmappable code are all *routine expected* failures, which is precisely the case for `Result` over exceptions.
 
 ### Candidates for `ADOPTION.md`
 
--
+- ✅ *Written 2026-09-05* — the register finding (Evans/Fowler vocabulary, not category theory).
+- ✅ *Written 2026-09-05* — the maintenance-reality constraint, and what survives of the opportunity.

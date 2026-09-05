@@ -66,13 +66,52 @@ Each part ends with **predict-then-check** and **explain-it-back**. The explain-
 
 > ⚠️ **Part 5 has a November expiry.** Its sealed-record error hierarchies are C#'s best available approximation of a discriminated union — and C# 15 ships real `union` types in **November 2026**. Revisit that part then; the workaround becomes a footnote.
 
-## Stage 2 — DO: CSV ingest → report CLI *(compressed)*
+## Stage 2 — DO: maintain a connector *(compressed)*
 
-Fresh domain, your pick — a log parser, bank-statement importer, race-results tabulator. Anything with dirty input and a summary.
+**Retargeted 2026-09-05** from a generic CSV→report CLI to a **connector under maintenance** — because that's the shape of the actual work, in both senses: what a connector *does*, and how change *arrives*.
 
-Chosen because it hits the hardest part of CFE head-on: per-row validation with multiple independent errors, exactly where the missing `Validation` applicative bites and where you'll write the value-preserving `Zip` helper from Article B §6.5 for real.
+Synthetic source and target formats. Invented systems, no product code. It stays a learning exercise.
 
-**Compressed** means: one pass, one domain, no capstone. Enough to have felt the pain and formed an opinion — not a portfolio piece. Strict TDD; red is a runnable assertion failure, never a compile error; baseline first.
+### Why a connector
+
+| Connector stage | What the material says |
+|---|---|
+| Read from the source system | untrusted external data → **parse at the boundary** |
+| Translate / map fields | a pure transformation → **the functional core** |
+| Write to the target system | I/O → **the imperative shell** |
+| Bad record, missing field, unmappable code | routine, expected failure → **`Result`, not exceptions** |
+| Several fields wrong in one record | independent errors → **the accumulation problem** (Article B §6) |
+| 900 of 1000 records succeeded | partial success → needs a real error-collection strategy |
+
+### Brownfield on purpose
+
+Greenfield would be the wrong drill. The organization has existed since 1980 and has *many* working connectors that need maintenance, not rebuilds. The realistic unit of change is "I'm already touching this mapping for a ticket" — never "let's rewrite it." And the strongest argument against rewriting isn't sunk cost: a connector that's run for fifteen years encodes hundreds of edge cases nobody wrote down, discovered one support ticket at a time. A rewrite discards that and rediscovers it at the customer's expense.
+
+So:
+
+**Claude writes the starting point.** A plausible legacy connector — the kind a competent developer wrote under deadline in 2015. Imperative, `null` guards, a `catch` that swallows, magic strings, validation interleaved with I/O, one long method. Realistically bad, not strawman bad: it works on the happy path. **With few or no tests.**
+
+> ⚠️ This is the one place Claude writes production-shaped code in this repo. It's the *legacy artifact*, not the learning code — everything from the first ticket onward is Larry's to type. Larry's request, 2026-09-05.
+
+Two consequences worth naming:
+
+- **Unfamiliar code is the point.** You can't lean on remembering your own intent, which is exactly the maintenance condition.
+- **No tests makes baseline-first real.** Your first move isn't a refactor — it's characterization tests to pin current behaviour before touching anything. That's your own documented working style, applied where it actually bites.
+
+### Change arrives as tickets
+
+Not as "now add typed errors." As it arrives on the board:
+
+> *"Customer A hit this issue applying the connector to their process…"*
+> *"Customer B is using it a different way and…"*
+
+**Claude issues tickets one at a time and does not reveal them in advance.** Seeing the sequence would let you design for it, and real maintenance is blind. Each ticket applies pressure to a different seam; whether your functional core absorbs it well is the only honest test of the design.
+
+Rhythm per ticket: baseline → characterization test if needed → behaviour-preserving refactor as its own commit → then the change. Strict TDD from the first ticket on; red is a runnable assertion failure, never a compile error.
+
+**Compressed** means one connector, one source format, a handful of tickets — enough to have felt it, not a portfolio piece.
+
+The by-product is the Stage 3 artifact: a **before/after pair from the same file**, which is far more persuasive to a maintenance-bound team than any greenfield example.
 
 ## Stage 3 — TEACH: the artifact that doesn't exist
 
@@ -81,10 +120,13 @@ The deliverable. Not a demo app — a **written on-ramp** for a C# developer who
 Rough shape (settle it when you get there):
 
 - The 20-minute version: `Maybe` and `Result`, one domain, no jargon.
+- **The chapter nobody writes: how to use this in maintenance work on code you didn't write and can't rewrite.** Every tutorial in this space — Khorikov's included — assumes greenfield. Your team is maintenance-bound, so this is the section that makes the artifact worth reading. Seam-level adoption, not transformation.
 - The decision tables that took you longest to internalize — `Map`/`Bind`/`Ensure`/`Check`/`Tap`, and `Result` vs `Result<T>` arity.
 - The traps, because they cost you real time: the `.Value` hatch, `var` hiding the wrong result type, `Result.Failure<T>` being a method not a type.
 - House rules you'd propose: where `.Value` is allowed, `Result<T>` inside a module vs `Result<T, E>` at its edge, what to do about accumulation.
 - Honest weaknesses, volunteered before anyone finds them.
+
+**Register note (from the 2026-09-05 reading):** Khorikov's 2015 series uses *Evans and Fowler* vocabulary — primitive obsession, immutability, illegal states unrepresentable — with no `monad`/`functor`/`applicative` anywhere. That's the register this artifact needs, because the team has the DDD vocabulary and not the FP one. Test for every sentence: *would Khorikov-in-2015 have written it this way?*
 
 Its natural companion is [`ADOPTION.md`](ADOPTION.md) — the journal answers *should we*, the artifact answers *how*.
 
